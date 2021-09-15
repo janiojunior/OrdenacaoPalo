@@ -1,6 +1,7 @@
 package aplicacao;
 
 import java.awt.Dimension;
+import java.awt.Label;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -21,47 +22,25 @@ import model.Palo;
 
 public class Principal  {
 
-	public static void main2(String[] args) {
+	public static void main(String[] args) {
 	      JFrame frame = new JFrame("Ordenação dos Palos");
 	      JPanel panel = new JPanel();
 	      frame.getContentPane();
 	      
-	      JLabel p1 = new JLabel("p1");
-	      Dimension size = p1.getPreferredSize();
-	      p1.setBounds(1403, 42, p1.getPreferredSize().width, p1.getPreferredSize().height);
-	      
-	      JLabel p2 = new JLabel("p2");
-	      p2.setBounds(1424, 43, p2.getPreferredSize().width, p2.getPreferredSize().height);
-	      
-	      JLabel p3 = new JLabel("p3");
-	      p3.setBounds(1382, 43, p3.getPreferredSize().width, p3.getPreferredSize().height);
-	      
-	      JLabel p4 = new JLabel("p4");
-	      p4.setBounds(626, 43, p4.getPreferredSize().width, p4.getPreferredSize().height);
-	      
-	      JLabel p5 = new JLabel("p5");
-	      p5.setBounds(528, 43, p5.getPreferredSize().width, p5.getPreferredSize().height);
-	      
-	      JLabel p6 = new JLabel("p6");
-	      p6.setBounds(734, 43, p6.getPreferredSize().width, p6.getPreferredSize().height);
-	
-	      
-	      
-//	      Palo [x=1400, y=19, width=7, height=46, centroidX=1403, centroidY=42]
-//		  Palo [x=1422, y=25, width=5, height=37, centroidX=1424, centroidY=43]
-//		  Palo [x=1379, y=20, width=7, height=46, centroidX=1382, centroidY=43]
-//		  Palo [x=624, y=16, width=5, height=55, centroidX=626, centroidY=43]
-//		  Palo [x=526, y=16, width=5, height=54, centroidX=528, centroidY=43]
-//		  Palo [x=729, y=9, width=10, height=68, centroidX=734, centroidY=43]	      
-	      
-	      
 	      panel.setLayout(null);
-	      panel.add(p1);
-	      panel.add(p2);
-	      panel.add(p3);
-	      panel.add(p4);
-	      panel.add(p5);
-	      panel.add(p6);
+			List<Palo> lista = lerJson();
+
+			lista.sort(new Comparator<Palo>() {
+				@Override
+				public int compare(Palo o1, Palo o2) {
+					return o1.getCentroidY().compareTo(o2.getCentroidY());
+				}
+			});
+
+			for (Palo palo : lista) {
+				panel.add(getLabel(palo));
+			}
+	      
 	      panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
 	      frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -70,8 +49,18 @@ public class Principal  {
 	      frame.setVisible(true);
 
 	}
+	
+	static int numero = 1;
+	public static JLabel getLabel(Palo palo) {
+		
+		  JLabel label = new JLabel("p"+numero++);
+		  label.setBounds(palo.getCentroidX(), palo.getCentroidY(), label.getPreferredSize().width, label.getPreferredSize().height);
+	      
+	      return label;
+		
+	}
 
-	public static void main(String[] args) {
+	public static void main2(String[] args) {
 		List<Palo> lista = lerJson();
 		
 		lista.sort( new Comparator<Palo>() {
