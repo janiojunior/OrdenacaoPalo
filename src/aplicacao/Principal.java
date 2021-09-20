@@ -23,31 +23,58 @@ import model.Palo;
 public class Principal  {
 
 	public static void main(String[] args) {
-	      JFrame frame = new JFrame("Ordenação dos Palos");
-	      JPanel panel = new JPanel();
-	      frame.getContentPane();
-	      
-	      panel.setLayout(null);
-			List<Palo> lista = lerJson();
+		// p131 - segunda linha
+		
+		JFrame frame = new JFrame("Ordenação dos Palos");
+		JPanel panel = new JPanel();
+		frame.getContentPane();
 
-			lista.sort(new Comparator<Palo>() {
-				@Override
-				public int compare(Palo o1, Palo o2) {
-					return o1.getCentroidY().compareTo(o2.getCentroidY());
-				}
-			});
+		panel.setLayout(null);
+		List<Palo> lista = lerJson();
 
-			for (Palo palo : lista) {
-				panel.add(getLabel(palo));
+		lista.sort(new Comparator<Palo>() {
+			@Override
+			public int compare(Palo o1, Palo o2) {
+				return o1.getCentroidY().compareTo(o2.getCentroidY());
 			}
-	      
-	      panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+		});
+		
+		// impressao do primeiro palo
+		Palo p136 = lista.get(135);
+		System.out.println(p136);
+		panel.add(getLabel(p136));
 
-	      frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-	      frame.add(panel);
-	      frame.setSize(1500, 1200);
-	      frame.setVisible(true);
+		Palo proximo = proximo(p136, lista);
+		while ( proximo != null) {
+			System.out.println(proximo);
+			panel.add(getLabel(proximo));
+			proximo = proximo(proximo, lista);
+		}
 
+		panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		frame.add(panel);
+		frame.setSize(1500, 1200);
+		frame.setVisible(true);
+
+	}
+	
+	public static Palo proximo(Palo pAtual, List<Palo> listaPalo) {
+		Palo resultado = null;
+		int eixoX = 999999999;
+		
+		// busca do proximo palo e selecao do mais proximo ao atual do eixo X
+		for (Palo palo : listaPalo) {
+			if (pAtual.isMaior(palo)) {
+				if (palo.getCentroidX() < eixoX) {
+					resultado = palo;
+					eixoX = resultado.getCentroidX();
+				}
+			}
+		}
+		
+		return resultado;
 	}
 	
 	static int numero = 1;
