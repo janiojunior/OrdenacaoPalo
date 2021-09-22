@@ -2,6 +2,8 @@ package model;
 
 public class Palo {
 
+	private Integer numero;
+	private Integer linha;
 	private Integer x;
 	private Integer y;
 	private Integer width;
@@ -16,6 +18,32 @@ public class Palo {
 				return true;
 		}
 		return false;
+	}
+	
+	public boolean isMenor(Palo palo) {
+		if (palo.getCentroidX() < this.getCentroidX()) {
+			int diferenca = this.getCentroidY() - palo.getCentroidY();
+			if (diferenca <= 15 && diferenca >= -15)
+				return true;
+		}
+		return false;
+	}
+	
+
+	public Integer getNumero() {
+		return numero;
+	}
+
+	public void setNumero(Integer numero) {
+		this.numero = numero;
+	}
+
+	public Integer getLinha() {
+		return linha;
+	}
+
+	public void setLinha(Integer linha) {
+		this.linha = linha;
 	}
 
 	public Integer getX() {
@@ -68,9 +96,9 @@ public class Palo {
 
 	@Override
 	public String toString() {
-		return "Palo [x=" + x + ", y=" + y + ", width=" + width + ", height=" + height + ", centroidX=" + centroidX
-				+ ", centroidY=" + centroidY + "]";
+		return "Palo [numero=" + numero + ", linha=" + linha + ", x=" + x + ", y=" + y + ", width=" + width
+				+ ", height=" + height + ", centroidX=" + centroidX + ", centroidY=" + centroidY + "]";
 	}
-	
+
 
 }
