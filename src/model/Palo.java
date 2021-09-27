@@ -11,24 +11,32 @@ public class Palo {
 	private Integer centroidX;
 	private Integer centroidY;
 	
+	// Constante de controle para analise de altura do palo
+	private final static int MEDIDA = 15;
+	
+	// verifica se o palo (parametro) eh maior que o atual (this)
+	// primeiro, verifica no eixo X
+	// em seguida, verifica no eixo Y está entre a medida informada na Constante (MEDIDA). EX. 15
 	public boolean isMaior(Palo palo) {
 		if (palo.getCentroidX() > this.getCentroidX()) {
 			int diferenca = this.getCentroidY() - palo.getCentroidY();
-			if (diferenca <= 15 && diferenca >= -15)
+			if (diferenca <= MEDIDA && diferenca >= -MEDIDA)
 				return true;
 		}
 		return false;
 	}
 	
+	// verifica se o palo (parametro) eh menor que o atual (this)
+	// primeiro, verifica no eixo X
+	// em seguida, verifica no eixo Y está entre a medida informada na Constante (MEDIDA). EX. 15
 	public boolean isMenor(Palo palo) {
 		if (palo.getCentroidX() < this.getCentroidX()) {
 			int diferenca = this.getCentroidY() - palo.getCentroidY();
-			if (diferenca <= 15 && diferenca >= -15)
+			if (diferenca <= MEDIDA && diferenca >= -MEDIDA)
 				return true;
 		}
 		return false;
 	}
-	
 
 	public Integer getNumero() {
 		return numero;
