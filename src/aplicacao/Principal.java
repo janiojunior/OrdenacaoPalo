@@ -163,7 +163,7 @@ public class Principal  {
 	// retorna o proximo palo (mais proximo) a direita
 	private static Palo buscarProximoPalo(Palo pAtual, List<Palo> listaPalo) {
 		Palo resultado = null;
-		int eixoX = 999999999;
+		int eixoX = Integer.MAX_VALUE;
 		
 		// busca do proximo palo e selecao do mais proximo ao atual do eixo X
 		for (Palo palo : listaPalo) {
